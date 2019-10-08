@@ -1,5 +1,7 @@
 {
   "name": "streamApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
