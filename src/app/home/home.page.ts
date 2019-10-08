@@ -7,7 +7,9 @@ import { PhotoService } from '../services/photo.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
- 
+  ngOnInit() {
+    this.photoService.loadSaved();
+  }
   constructor(public photoService: PhotoService) {}
 
 }
