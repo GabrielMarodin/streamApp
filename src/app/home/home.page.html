@@ -11,14 +11,14 @@
 
 <!--upload option-->
 <ion-content>
-    <ion-button (click)="fileHandler.uploadFile(fileHandler.filename,fileHandler.returnpath,'http://192.168.56.1/files')" expand="full">Upload File</ion-button>
+    {{filename}}
 </ion-content>
 
 
 <!--file choosing section-->
 <ion-content>
   <div class="ion-padding">
-    <ion-button (click)="fileHandler.chooseFile()" expand="full">Choose File</ion-button>
+    <ion-button (click)="fileHandler.uploadFile()" expand="full">Upload File</ion-button>
   </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="photoService.takePicture()">

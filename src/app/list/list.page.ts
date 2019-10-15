@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../services/photo.service';
 import { StreamingMedia, StreamingVideoOptions, StreamingAudioOptions} from '@ionic-native/streaming-media/ngx';
+import { FileHandler } from "../file";
 
 @Component({
   selector: 'app-list',
@@ -9,28 +10,8 @@ import { StreamingMedia, StreamingVideoOptions, StreamingAudioOptions} from '@io
 })
 export class ListPage implements OnInit {
   private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
   public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor(public photoService: PhotoService, private streamingMedia: StreamingMedia) {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
-  }
+  constructor(public photoService: PhotoService, private streamingMedia: StreamingMedia, public fileHandler: FileHandler) {}
   startVideo(link: string){
     let options: StreamingVideoOptions = {
       successCallback: () => {console.log()},
@@ -53,6 +34,13 @@ export class ListPage implements OnInit {
     this.streamingMedia.stopAudio();
   }
   ngOnInit() {
+    this.fileHandler.getFileData();
+
+    this.fileHandler.files.forEach(file => {
+      this.fileHandler.downloadFile(file.image);
+    });
+
+    this.photoService.loadSaved();
   }
   // add back when alpha.4 is out
   // navigate(item) {

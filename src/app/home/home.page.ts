@@ -8,10 +8,6 @@ import { FileHandler } from "../file";
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  
-  ngOnInit() {
-    this.photoService.loadSaved();
-  }
 
   constructor(public photoService: PhotoService, public fileHandler: FileHandler) {}
 
