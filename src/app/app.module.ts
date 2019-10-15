@@ -13,7 +13,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StreamingMedia} from '@ionic-native/streaming-media/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
-
+import { FileTransfer} from '@ionic-native/file-transfer/ngx';
+import {File} from '@ionic-native/file/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -30,6 +31,8 @@ import { FilePath } from '@ionic-native/file-path/ngx';
     StreamingMedia,
     FileChooser,
     FilePath,
+    FileTransfer,
+    File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

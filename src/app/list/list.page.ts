@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PhotoService } from '../services/photo.service';
+import { StreamingMedia, StreamingVideoOptions, StreamingAudioOptions} from '@ionic-native/streaming-media/ngx';
 
 @Component({
   selector: 'app-list',
@@ -20,7 +22,7 @@ export class ListPage implements OnInit {
     'build'
   ];
   public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor() {
+  constructor(public photoService: PhotoService, private streamingMedia: StreamingMedia) {
     for (let i = 1; i < 11; i++) {
       this.items.push({
         title: 'Item ' + i,
@@ -29,7 +31,27 @@ export class ListPage implements OnInit {
       });
     }
   }
-
+  startVideo(link: string){
+    let options: StreamingVideoOptions = {
+      successCallback: () => {console.log()},
+      errorCallback: (e) => {console.log(e)},
+      orientation: '',
+      shouldAutoClose: false,
+      controls: true
+    }
+    this.streamingMedia.playVideo(link, options);
+  }
+  startAudio(link: string){
+    let options: StreamingAudioOptions = {
+      successCallback: () => {console.log()},
+      errorCallback: (e) => {console.log()},
+      initFullscreen: false,
+    }
+    this.streamingMedia.playAudio(link, options);
+  }
+  stopAudio(){
+    this.streamingMedia.stopAudio();
+  }
   ngOnInit() {
   }
   // add back when alpha.4 is out

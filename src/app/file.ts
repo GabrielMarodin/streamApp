@@ -1,15 +1,19 @@
+import { Injectable } from '@angular/core';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class FileHandler {
 
   fileTransfer: FileTransferObject = this.transfer.create();
 
   returnpath: string;
   filename: string;
-  
+
   constructor(private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private filePath: FilePath) { }
 
 
