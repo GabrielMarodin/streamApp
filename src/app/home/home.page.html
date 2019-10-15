@@ -9,21 +9,24 @@
   </ion-toolbar>
 </ion-header>
 
+<!--local playing options-->
 <ion-content padding>
-    <button ion-button full (click)="startVideo(link)">Start Video</button>
-    <button ion-button full (click)="startAudio(link)">Start Audio</button>
-    <button ion-button full (click)="stopAudio()">Stop Audio</button>
+    <ion-button block (click)="startVideo(link)">Start Video</button>
+    <ion-button block (click)="startAudio(link)">Start Audio</button>
+    <ion-button block (click)="stopAudio()">Stop Audio</button>
 </ion-content>
 
+<!--upload option-->
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="4" *ngFor="let photo of photoService.photos">
-        <img [src]="photo.data" />
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-button (click)="fileHandler.uploadFile({{filename}},{{returnpath}},'http://192.168.56.1/files')" expand="full">Choose File</ion-button>
+</ion-content>
 
+
+<!--file choosing section-->
+<ion-content>
+  <div class="ion-padding">
+    <ion-button (click)="fileHandler.chooseFile()" expand="full">Choose File</ion-button>
+  </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="photoService.takePicture()">
       <ion-icon name="camera"></ion-icon>

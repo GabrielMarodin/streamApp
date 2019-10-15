@@ -1,18 +1,25 @@
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
 
-class FileHandler {
+export class FileHandler {
 
-    constructor(private transfer: FileTransfer, private file: File) { }
+  fileTransfer: FileTransferObject = this.transfer.create();
 
-    fileTransfer: FileTransferObject = this.transfer.create();
+  returnpath: string;
+  filename: string;
+  
+  constructor(private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private filePath: FilePath) { }
+
+
 
     checkDir(dir: string){
         this.file.checkDir(this.file.dataDirectory, dir).then(_ => 
                 console.log('Directory exists')).catch(err => 
                     console.log("Directory doesn't exist"));
     }
-    upload(name: string, filePath: string, endFolder: string) {
+    uploadFile(name: string, filePath: string, endFolder: string) {
         let options: FileUploadOptions = {
            fileKey: 'file',
            fileName: name,
@@ -25,12 +32,23 @@ class FileHandler {
          }, (err) => {
            // error
          })
-      }
-      download(url: string, file: string) {
-        this.fileTransfer.download(url, this.file.dataDirectory + file).then((entry) => {
-          console.log('download complete: ' + entry.toURL());
-        }, (error) => {
-          // handle error
-        });
-      }
+    }
+    downloadFile(url: string, file: string) {
+      this.fileTransfer.download(url, this.file.dataDirectory + file).then((entry) => {
+         console.log('download complete: ' + entry.toURL());
+      }, (error) => {
+        // handle error
+      });
+    }
+    chooseFile(){
+      this.fileChooser.open().then((uri) => {
+        this.filePath.resolveNativePath(uri).then((resolveduri) => {
+          this.returnpath = resolveduri;
+        })
+      })
+      .catch(e => console.log(e));
+      this.fileChooser.open().then((name) => {
+        this.filename = name;
+      });
+    }
 }

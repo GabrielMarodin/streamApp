@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PhotoService } from '../services/photo.service';
 import { StreamingMedia, StreamingVideoOptions, StreamingAudioOptions} from '@ionic-native/streaming-media/ngx';
+import { FileHandler } from "../file";
 
 @Component({
   selector: 'app-home',
@@ -8,16 +9,17 @@ import { StreamingMedia, StreamingVideoOptions, StreamingAudioOptions} from '@io
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  
   ngOnInit() {
     this.photoService.loadSaved();
   }
 
-  constructor(public photoService: PhotoService, private streamingMedia: StreamingMedia) {}
+  constructor(public photoService: PhotoService, private streamingMedia: StreamingMedia, public fileHandler: FileHandler) {}
 
   startVideo(link: string){
     let options: StreamingVideoOptions = {
       successCallback: () => {console.log()},
-      errorCallback: (e) => {console.log()},
+      errorCallback: (e) => {console.log(e)},
       orientation: '',
       shouldAutoClose: false,
       controls: true
