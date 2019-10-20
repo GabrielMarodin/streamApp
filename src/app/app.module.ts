@@ -17,6 +17,10 @@ import { FileTransfer} from '@ionic-native/file-transfer/ngx';
 import {File} from '@ionic-native/file/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
+import { HttpClientModule }    from '@angular/common/http';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { HttpClient } from 'selenium-webdriver/http';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +42,8 @@ import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
     File,
     HTTP,
     IOSFilePicker,
+    NativeStorage,
+    HttpClient,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
