@@ -12,13 +12,10 @@ import { User } from '../model/user';
 export class AuthService {
   isLoggedIn = false;
   token:any;
-  constructor(
-    private http: HttpClient,
-    private storage: NativeStorage,
-    private env: EnvService,
-  ) { }
-  login(email: String, password: String) {
-    return this.http.post(this.env.API_URL + 'auth/login', {email: email, password: password}).pipe( tap(token => {
+  constructor(private http: HttpClient, private storage: NativeStorage, private env: EnvService) {}
+
+  login(email: String, senha: String) {
+    return this.http.post(this.env.API_URL + 'login.php', JSON.stringify({email: email, senha: senha})).pipe( tap(token => {
         this.storage.setItem('token', token).then(() => {
             console.log('Token Stored');
           },
@@ -34,7 +31,7 @@ export class AuthService {
     const headers = new HttpHeaders({
       'Authorization': this.token["token_type"]+" "+this.token["access_token"]
     });
-    return this.http.get(this.env.API_URL + 'auth/logout', { headers: headers })
+    return this.http.get(this.env.API_URL + 'logout.php', { headers: headers })
     .pipe(
       tap(data => {
         this.storage.remove("token");
@@ -48,27 +45,25 @@ export class AuthService {
     const headers = new HttpHeaders({
       'Authorization': this.token["token_type"]+" "+this.token["access_token"]
     });
-    return this.http.get<User>(this.env.API_URL + 'auth/user', { headers: headers })
+    return this.http.get<User>(this.env.API_URL + 'api/objects/user.php', { headers: headers })
     .pipe(
       tap(user => {
         return user;
       })
     )
   }
-  async getToken() {
-    try {
-      const data = await this.storage.getItem('token');
-      this.token = data;
-      if (this.token != null) {
-        this.isLoggedIn = true;
+  getToken() {
+    return this.storage.getItem('token').then( data => {
+      this.token = data; if(this.token != null) {
+          this.isLoggedIn=true;
+        } else {
+          this.isLoggedIn=false;
+        }
+      },
+      error => {
+        this.token = null;
+        this.isLoggedIn=false;
       }
-      else {
-        this.isLoggedIn = false;
-      }
-    }
-    catch (error) {
-      this.token = null;
-      this.isLoggedIn = false;
-    }
+    );
   }
 }

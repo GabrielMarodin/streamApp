@@ -34,7 +34,9 @@ export class ListPage implements OnInit {
     this.streamingMedia.stopAudio();
   }
   ngOnInit() {
-    
+    this.fileHandler.getFileData().subscribe((res: Response) => {
+      this.fileHandler.fileinfo = Array.of(res.json());
+    });
     this.photoService.loadSaved();
   }
   // add back when alpha.4 is out

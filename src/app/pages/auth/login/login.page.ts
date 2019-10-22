@@ -11,24 +11,23 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class LoginPage implements OnInit {
   
-  constructor(
-    private modalController: ModalController,
-    private authService: AuthService,
-    private navCtrl: NavController,
-    private alertService: AlertService
-  ) { }
+  constructor(private modalController: ModalController, private authService: AuthService, private navCtrl: NavController, private alertService: AlertService) {}
+  
   ngOnInit() {
   }
+
   // Dismiss Login Modal
   dismissLogin() {
     this.modalController.dismiss();
   }
+
   // On Register button tap, dismiss login modal and open register modal
   async registerModal() {
     this.dismissLogin();
   }
+
   login(form: NgForm) {
-    this.authService.login(form.value.email, form.value.password).subscribe(
+    this.authService.login(form.value.email, form.value.senha).subscribe(
       data => {
         this.alertService.presentToast("Logged In");
       },

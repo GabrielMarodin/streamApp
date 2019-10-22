@@ -19,7 +19,6 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
 import { HttpClientModule }    from '@angular/common/http';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { HttpClient } from 'selenium-webdriver/http';
 
 
 @NgModule({
@@ -29,7 +28,8 @@ import { HttpClient } from 'selenium-webdriver/http';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpClientModule
   ],
   providers: [
     StatusBar,
@@ -43,7 +43,6 @@ import { HttpClient } from 'selenium-webdriver/http';
     HTTP,
     IOSFilePicker,
     NativeStorage,
-    HttpClient,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

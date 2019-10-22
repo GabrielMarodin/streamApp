@@ -21,9 +21,9 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let file of fileHandler.fileinfo">
-        <ion-card *ngIf="file.type == 'video' " (click)="startVideo('http://192.168.56.1/files/' + file.path)">
-          <ion-card *ngIf="file.type == 'image' " (click)="">
-          <img [src]="'http://192.168.56.1/files/' + file.image" />
+        <ion-card *ngIf="file.tipo == 'video' " (click)="startVideo('http://localhost/files/' + file.path)">
+          <ion-card *ngIf="file.tipo == 'image' " (click)="">
+          <img [src]="'http://localhost/files/' + file.path" />
           <ion-card-header>
              <ion-card-title>{{file.name}}</ion-card-title>
           </ion-card-header>

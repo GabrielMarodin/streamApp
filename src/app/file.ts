@@ -4,7 +4,7 @@ import { File } from '@ionic-native/file/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { ToastController } from '@ionic/angular';
-import { HTTP } from '@ionic-native/http/ngx';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
 
@@ -12,6 +12,7 @@ import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
   providedIn: 'root'
 })
 export class FileHandler {
+  
   fileinfo: any[];
   fileTransfer: FileTransferObject;
   uploadText: string;
@@ -19,7 +20,7 @@ export class FileHandler {
   filename: any;
   filetype: any;
 
-  constructor(public platform: Platform, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private filePicker: IOSFilePicker, private filePath: FilePath, public toastController: ToastController, private http: HTTP) { }
+  constructor(public platform: Platform, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private filePicker: IOSFilePicker, private filePath: FilePath, public toastController: ToastController, private http: HttpClient) { }
 
   checkDir(dir: string) {
     this.file.checkDir(this.file.dataDirectory, dir).then(_ =>
@@ -61,7 +62,7 @@ export class FileHandler {
       mimeType: (this.filename + '/' + this.filetype),
     }
     this.uploadText = 'uploading';
-    this.fileTransfer.upload(this.filespath, 'http://192.168.56.1/files', options).then((data) => {
+    this.fileTransfer.upload(this.filespath, 'http://localhost/files', options).then((data) => {
 
       this.presentToast('Upload complete.');
       this.uploadText = '';
@@ -77,7 +78,7 @@ export class FileHandler {
 
     this.fileTransfer = this.transfer.create();
 
-    this.fileTransfer.download('http://192.168.56.1/files/' + file, this.file.dataDirectory + file).then((entry) => {
+    this.fileTransfer.download('http://localhost/files/' + file, this.file.dataDirectory + file).then((entry) => {
 
       this.presentToast('Download complete.');
 
@@ -89,10 +90,9 @@ export class FileHandler {
   }
 
   getFileData() {
-    this.http.get('http://192.168.56.1/files/files.php',{},{}).then(fileinfo => {
-      this.fileinfo = fileinfo.data;
-    }).catch();
+    return this.http.get('http://localhost/files/files.php');
   }
+  
   async presentToast(msg: string) {
     const toast = await this.toastController.create({
       message: msg,
