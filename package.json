@@ -49,6 +49,7 @@
     "cordova-plugin-photo-library": "^2.2.1",
     "cordova-plugin-streaming-media": "^2.2.0",
     "cordova-sqlite-storage": "^3.4.0",
+    "cordova-windows": "^7.0.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
@@ -109,6 +110,9 @@
         "OKHTTP_VERSION": "3.10.0"
       },
       "cordova-plugin-nativestorage": {}
-    }
+    },
+    "platforms": [
+      "windows"
+    ]
   }
 }

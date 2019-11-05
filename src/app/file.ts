@@ -62,7 +62,7 @@ export class FileHandler {
       mimeType: (this.filename + '/' + this.filetype),
     }
     this.uploadText = 'uploading';
-    this.fileTransfer.upload(this.filespath, 'http://localhost/files', options).then((data) => {
+    this.fileTransfer.upload(this.filespath, 'http://192.168.1.109/server/files', options).then((data) => {
 
       this.presentToast('Upload complete.');
       this.uploadText = '';
@@ -78,7 +78,7 @@ export class FileHandler {
 
     this.fileTransfer = this.transfer.create();
 
-    this.fileTransfer.download('http://localhost/files/' + file, this.file.dataDirectory + file).then((entry) => {
+    this.fileTransfer.download('http://192.168.1.109/server/files/' + file, this.file.dataDirectory + file).then((entry) => {
 
       this.presentToast('Download complete.');
 
@@ -90,7 +90,7 @@ export class FileHandler {
   }
 
   getFileData() {
-    return this.http.get('http://localhost/files/files.php');
+    return this.http.get('http://192.168.1.109/files/files.php');
   }
   
   async presentToast(msg: string) {
