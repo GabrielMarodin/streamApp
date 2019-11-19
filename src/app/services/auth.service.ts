@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient, private storage: NativeStorage, private env: EnvService) {}
 
   login(email: String, senha: String) {
-    return this.http.post(this.env.API_URL + 'login.php', JSON.stringify({email: email, senha: senha})).pipe( tap(token => {
+    return this.http.post(this.env.API_URL + 'api/login.php', JSON.stringify({email: email, senha: senha})).pipe( tap(token => {
         this.storage.setItem('token', token).then(() => {
             console.log('Token Stored');
           },

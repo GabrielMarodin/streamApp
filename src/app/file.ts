@@ -7,6 +7,7 @@ import { ToastController } from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
+import { EnvService } from './services/env.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class FileHandler {
   filename: any;
   filetype: any;
 
-  constructor(public platform: Platform, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private filePicker: IOSFilePicker, private filePath: FilePath, public toastController: ToastController, private http: HttpClient) { }
+  constructor(public platform: Platform, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private filePicker: IOSFilePicker, private filePath: FilePath, public toastController: ToastController, private http: HttpClient, private env: EnvService) { }
 
   checkDir(dir: string) {
     this.file.checkDir(this.file.dataDirectory, dir).then(_ =>
@@ -62,7 +63,7 @@ export class FileHandler {
       mimeType: (this.filename + '/' + this.filetype),
     }
     this.uploadText = 'uploading';
-    this.fileTransfer.upload(this.filespath, 'http://192.168.1.109/server/files', options).then((data) => {
+    this.fileTransfer.upload(this.filespath, this.env.API_URL+'files/uploads', options).then((data) => {
 
       this.presentToast('Upload complete.');
       this.uploadText = '';
@@ -78,7 +79,7 @@ export class FileHandler {
 
     this.fileTransfer = this.transfer.create();
 
-    this.fileTransfer.download('http://192.168.1.109/server/files/' + file, this.file.dataDirectory + file).then((entry) => {
+    this.fileTransfer.download(this.env.API_URL+'files/uploads' + file, this.file.dataDirectory + file).then((entry) => {
 
       this.presentToast('Download complete.');
 
@@ -90,7 +91,7 @@ export class FileHandler {
   }
 
   getFileData() {
-    return this.http.get('http://192.168.1.109/files/files.php');
+    return this.http.get(this.env.API_URL+'files.php');
   }
   
   async presentToast(msg: string) {

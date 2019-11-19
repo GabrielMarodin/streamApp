@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../services/photo.service';
 import { StreamingMedia, StreamingVideoOptions, StreamingAudioOptions} from '@ionic-native/streaming-media/ngx';
 import { FileHandler } from "../file";
+import { EnvService } from '../services/env.service';
 
 @Component({
   selector: 'app-list',
@@ -11,7 +12,8 @@ import { FileHandler } from "../file";
 export class ListPage implements OnInit {
   private selectedItem: any;
   public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor(public photoService: PhotoService, private streamingMedia: StreamingMedia, public fileHandler: FileHandler) {}
+  constructor(public photoService: PhotoService, private streamingMedia: StreamingMedia, public fileHandler: FileHandler, private env: EnvService) {}
+  
   startVideo(link: string){
     let options: StreamingVideoOptions = {
       successCallback: () => {console.log()},
