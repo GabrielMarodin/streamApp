@@ -8,13 +8,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
 import { EnvService } from './services/env.service';
+import { FileInfo } from './fileInfo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileHandler {
   
-  fileinfo: any[];
+  fileinfo: FileInfo[];
   fileTransfer: FileTransferObject;
   uploadText: string;
   filespath: string;
@@ -91,7 +92,7 @@ export class FileHandler {
   }
 
   getFileData() {
-    return this.http.get(this.env.API_URL+'files.php');
+    return this.http.get<FileInfo[]>(this.env.API_URL+'files/files.php');
   }
   
   async presentToast(msg: string) {
@@ -102,3 +103,4 @@ export class FileHandler {
     toast.present();
   }
 }
+
